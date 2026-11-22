@@ -42,8 +42,8 @@ img{height:auto}
 .ph::before{content:"";position:absolute;top:-4px;left:-5px;border:6px solid transparent;border-top-color:var(--rec)}
 
 /* 인트로 */
-.intro{min-height:100svh;display:grid;align-content:center;padding:100px max(4vw,18px) 80px;position:relative;overflow:hidden}
-.intro h1{margin:0;font-family:Archivo,sans-serif;font-weight:900;line-height:.86;font-size:clamp(44px,10vw,170px);letter-spacing:-.02em;text-transform:uppercase;width:max-content;max-width:100%}
+.intro{min-height:100svh;display:grid;align-content:center;justify-items:start;padding:100px max(2.4vw,14px) 80px;position:relative;overflow:hidden}
+.intro h1{margin:0;font-family:Archivo,sans-serif;font-weight:900;line-height:.86;font-size:clamp(56px,13.5vw,230px);letter-spacing:-.02em;text-transform:uppercase}
 .intro h1 .row{display:block;overflow:hidden}
 .intro h1 .row span{display:inline-block;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards;font-variation-settings:"wdth" 125}
 .intro h1 .row:nth-child(2) span{animation-delay:.12s;font-variation-settings:"wdth" 62;color:transparent;-webkit-text-stroke:2px var(--ink)}
@@ -72,7 +72,7 @@ img{height:auto}
 .strip.b{transform:rotate(1.6deg)}
 .strip::before,.strip::after{content:"";position:absolute;left:0;right:0;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Crect x='8' y='2' width='12' height='10' rx='2' fill='%23e8e6df'/%3E%3C/svg%3E") repeat-x;opacity:.9}
 .strip::before{top:8px}.strip::after{bottom:8px}
-.row{display:flex;gap:12px;will-change:transform;padding-left:15vw}
+.frow{display:flex;gap:12px;will-change:transform;padding-left:15vw}
 .fr{position:relative;flex:none;height:min(28svh,270px);aspect-ratio:16/10;border-radius:3px;overflow:hidden;background:#000;margin:0}
 .fr video{width:100%;height:100%;object-fit:cover}
 .fr.c video{object-fit:contain}
@@ -273,8 +273,8 @@ dt{color:var(--sub)}dd{margin:0}
 <section class="pin" id="reel" data-tl="Showreel">
   <div class="stick">
     <div class="fs-head"><b class="en">Showreel</b><span>SCROLL ↓ 필름이 흘러갑니다<br>VIVID ← · → ON;</span></div>
-    <div class="strip a"><i class="tagv">VIVID</i><div class="row" id="rowA"><figure class="fr c" style="background:#3478ff"><video class="loop" data-src="media/v_hero.mp4" muted loop playsinline preload="none"></video><figcaption>V01 · VIVID 타이틀</figcaption></figure><figure class="fr" style="background:#f4f4f4"><video class="loop" data-src="media/v_cards.mp4" muted loop playsinline preload="none"></video><figcaption>V02 · 집 유형 토큰</figcaption></figure><figure class="fr" style="background:#efefef"><video class="loop" data-src="media/v_hub.mp4" muted loop playsinline preload="none"></video><figcaption>V03 · Vivid 허브</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_token.mp4" muted loop playsinline preload="none"></video><figcaption>V04 · 토큰 인식</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_friend.mp4" muted loop playsinline preload="none"></video><figcaption>V05 · 친구 추가 미션</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_shop.mp4" muted loop playsinline preload="none"></video><figcaption>V06 · 가전 찜하기</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_home.mp4" muted loop playsinline preload="none"></video><figcaption>V07 · 앱 홈</figcaption></figure></div></div>
-    <div class="strip b"><i class="tago">ON;</i><div class="row" id="rowB"><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_run.mp4" muted loop playsinline preload="none"></video><figcaption>O01 · 인생 2막</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_device.mp4" muted loop playsinline preload="none"></video><figcaption>O02 · AI 기기</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_app3.mp4" muted loop playsinline preload="none"></video><figcaption>O03 · 지원 관리</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_ai1.mp4" muted loop playsinline preload="none"></video><figcaption>O04 · AI 음성 상담</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_device_ui.mp4" muted loop playsinline preload="none"></video><figcaption>O05 · 기기 화면</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_screens.mp4" muted loop playsinline preload="none"></video><figcaption>O06 · 정보 탐색</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_info.mp4" muted loop playsinline preload="none"></video><figcaption>O07 · 맞춤 복지 정보</figcaption></figure></div></div>
+    <div class="strip a"><i class="tagv">VIVID</i><div class="frow" id="rowA"><figure class="fr c" style="background:#3478ff"><video class="loop" data-src="media/v_hero.mp4" muted loop playsinline preload="none"></video><figcaption>V01 · VIVID 타이틀</figcaption></figure><figure class="fr" style="background:#f4f4f4"><video class="loop" data-src="media/v_cards.mp4" muted loop playsinline preload="none"></video><figcaption>V02 · 집 유형 토큰</figcaption></figure><figure class="fr" style="background:#efefef"><video class="loop" data-src="media/v_hub.mp4" muted loop playsinline preload="none"></video><figcaption>V03 · Vivid 허브</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_token.mp4" muted loop playsinline preload="none"></video><figcaption>V04 · 토큰 인식</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_friend.mp4" muted loop playsinline preload="none"></video><figcaption>V05 · 친구 추가 미션</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_shop.mp4" muted loop playsinline preload="none"></video><figcaption>V06 · 가전 찜하기</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_home.mp4" muted loop playsinline preload="none"></video><figcaption>V07 · 앱 홈</figcaption></figure></div></div>
+    <div class="strip b"><i class="tago">ON;</i><div class="frow" id="rowB"><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_run.mp4" muted loop playsinline preload="none"></video><figcaption>O01 · 인생 2막</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_device.mp4" muted loop playsinline preload="none"></video><figcaption>O02 · AI 기기</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_app3.mp4" muted loop playsinline preload="none"></video><figcaption>O03 · 지원 관리</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_ai1.mp4" muted loop playsinline preload="none"></video><figcaption>O04 · AI 음성 상담</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_device_ui.mp4" muted loop playsinline preload="none"></video><figcaption>O05 · 기기 화면</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_screens.mp4" muted loop playsinline preload="none"></video><figcaption>O06 · 정보 탐색</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_info.mp4" muted loop playsinline preload="none"></video><figcaption>O07 · 맞춤 복지 정보</figcaption></figure></div></div>
   </div>
 </section>
 
@@ -545,13 +545,19 @@ dt{color:var(--sub)}dd{margin:0}
   shUpd();
 
 
-  // 인트로 제목이 화면 폭 안에 들어오도록 글자 크기 맞춤
+  // 인트로 제목: 글자 높이는 크게 두고, 넘치는 줄만 글자 폭(wdth)을 좁혀 화면 안에 맞춤
   const h1 = $('.intro h1'), intro = $('.intro');
   const fitTitle = () => {
-    h1.style.fontSize = '';
+    intro.scrollLeft = 0; h1.style.fontSize = '';
     const cs = getComputedStyle(intro), avail = intro.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-    const rows = $$('.row span', h1); const widest = Math.max(...rows.map(r => r.scrollWidth));
-    if (widest > avail) h1.style.fontSize = (parseFloat(getComputedStyle(h1).fontSize) * avail / widest * .97) + 'px';
+    const rows = $$('.row span', h1);
+    rows.forEach(r => {
+      r.style.fontVariationSettings = '';
+      let w = parseFloat((getComputedStyle(r).fontVariationSettings.match(/[\d.]+$/) || [125])[0]);
+      while (r.scrollWidth > avail && w > 62) { w = Math.max(62, w - 4); r.style.fontVariationSettings = `"wdth" ${w}`; }
+    });
+    const widest = Math.max(...rows.map(r => r.scrollWidth));
+    if (widest > avail) h1.style.fontSize = (parseFloat(getComputedStyle(h1).fontSize) * avail / widest * .98) + 'px';
   };
   fitTitle(); addEventListener('resize', fitTitle); document.fonts && document.fonts.ready.then(fitTitle);
 
