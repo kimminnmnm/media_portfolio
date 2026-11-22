@@ -43,7 +43,7 @@ img{height:auto}
 
 /* 인트로 */
 .intro{min-height:100svh;display:grid;align-content:center;padding:100px max(4vw,18px) 80px;position:relative;overflow:hidden}
-.intro h1{margin:0;font-family:Archivo,sans-serif;font-weight:900;line-height:.86;font-size:clamp(56px,13.5vw,210px);letter-spacing:-.02em;text-transform:uppercase}
+.intro h1{margin:0;font-family:Archivo,sans-serif;font-weight:900;line-height:.86;font-size:clamp(44px,10vw,170px);letter-spacing:-.02em;text-transform:uppercase;width:max-content;max-width:100%}
 .intro h1 .row{display:block;overflow:hidden}
 .intro h1 .row span{display:inline-block;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards;font-variation-settings:"wdth" 125}
 .intro h1 .row:nth-child(2) span{animation-delay:.12s;font-variation-settings:"wdth" 62;color:transparent;-webkit-text-stroke:2px var(--ink)}
@@ -543,6 +543,17 @@ dt{color:var(--sub)}dd{margin:0}
     });
   });
   shUpd();
+
+
+  // 인트로 제목이 화면 폭 안에 들어오도록 글자 크기 맞춤
+  const h1 = $('.intro h1'), intro = $('.intro');
+  const fitTitle = () => {
+    h1.style.fontSize = '';
+    const cs = getComputedStyle(intro), avail = intro.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const rows = $$('.row span', h1); const widest = Math.max(...rows.map(r => r.scrollWidth));
+    if (widest > avail) h1.style.fontSize = (parseFloat(getComputedStyle(h1).fontSize) * avail / widest * .97) + 'px';
+  };
+  fitTitle(); addEventListener('resize', fitTitle); document.fonts && document.fonts.ready.then(fitTitle);
 
   // 타임라인
   const secs = $$('[data-tl]'), tl = $('#tl'), ph = $('#ph');
