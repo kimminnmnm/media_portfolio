@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>김민 영상 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* VOICE: 편집실 같은 영상 포트폴리오. 작업물이 화면을 채우고 글은 짧게
+   IDEA: 페이지 전체가 하나의 편집 타임라인. 스크롤이 재생헤드, 타임코드가 흐름
+   PICTURE: 스크롤에 맞춰 커지는 쇼릴, 스크롤로 넘기는 영상, 가로로 흐르는 모션 클립
+   COLOUR and TYPE: 편집실 블랙, 프로젝트별 블루 #3478ff / 그린 #7cac88, Archivo 가변 폭 + Noto Sans KR
+   LAYOUT: 인트로 → 쇼릴 → 작업 목록 → VIVID → ON; → 소개 → 크레딧 */
+:root{color-scheme:dark;--bg:#0b0b0c;--ink:#f3f3f1;--sub:#9b9b98;--line:#262627;--blue:#3478ff;--green:#7cac88;--rec:#ff3b30}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,video{display:block;max-width:100%}
+img{height:auto}
+.en{font-family:Archivo,"Noto Sans KR",sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(4vw,18px)}
+
+/* HUD */
+.hud{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;gap:14px;height:60px;padding:0 max(3vw,16px);mix-blend-mode:difference;color:#fff;pointer-events:none}
+.hud a{pointer-events:auto;text-decoration:none}
+.hud .me{display:flex;align-items:center;gap:10px;font:800 17px/1 Archivo,sans-serif;letter-spacing:.02em;margin-right:auto}
+.hud nav{display:flex;gap:18px;font:500 14px/1 Archivo,sans-serif;pointer-events:auto}
+.hud nav a{padding:12px 0}
+.tc{font:13px/1 "Space Mono",monospace;display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+.rec{width:9px;height:9px;border-radius:50%;background:var(--rec);animation:blink 1.2s steps(2) infinite}
+@keyframes blink{50%{opacity:.15}}
+.tl{position:fixed;left:max(3vw,16px);right:max(3vw,16px);bottom:14px;z-index:50;height:30px;display:flex;gap:3px;align-items:stretch}
+.tl button{all:unset;cursor:pointer;flex:1;border-radius:4px;background:#1b1b1d;border:1px solid #2c2c2f;font:11px/28px Archivo,sans-serif;color:#aaa;padding:0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl button.v{background:#13234a;border-color:#24418a;color:#c9d8ff}
+.tl button.o{background:#1b2b21;border-color:#35523f;color:#cfe4d5}
+.tl button.on{color:#fff}
+.tl button:focus-visible{outline:2px solid #fff}
+.ph{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--rec);left:0;pointer-events:none}
+.ph::before{content:"";position:absolute;top:-4px;left:-5px;border:6px solid transparent;border-top-color:var(--rec)}
+
+/* 인트로 */
+.intro{min-height:100svh;display:grid;align-content:center;padding:100px max(4vw,18px) 80px;position:relative;overflow:hidden}
+.intro h1{margin:0;font-family:Archivo,sans-serif;font-weight:900;line-height:.86;font-size:clamp(56px,13.5vw,210px);letter-spacing:-.02em;text-transform:uppercase}
+.intro h1 .row{display:block;overflow:hidden}
+.intro h1 .row span{display:inline-block;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards;font-variation-settings:"wdth" 125}
+.intro h1 .row:nth-child(2) span{animation-delay:.12s;font-variation-settings:"wdth" 62;color:transparent;-webkit-text-stroke:2px var(--ink)}
+.intro h1 .row:nth-child(3) span{animation-delay:.24s}
+@keyframes up{to{transform:none}}
+.intro .who{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;margin-top:36px;opacity:0;animation:fade .8s .7s forwards}
+.intro .who b{font-size:22px}
+.intro .who span{color:var(--sub)}
+@keyframes fade{to{opacity:1}}
+.memo{position:absolute;right:max(4vw,18px);top:16vh;width:clamp(120px,17vw,250px);transform-origin:70% 90%;animation:wave 2.4s ease-in-out infinite;filter:drop-shadow(0 20px 30px rgba(0,0,0,.5))}
+@keyframes wave{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+.cue{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);font:12px/1 "Space Mono",monospace;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:10px}
+.cue i{width:1px;height:40px;background:linear-gradient(var(--ink),transparent);animation:drop 1.6s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* 쇼릴: 필름 스트립 두 줄이 반대로 흐름 */
+.pin{position:relative}
+.stick{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
+#reel{height:340svh}
+#reel .stick{display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,3svh,34px)}
+.fs-head{display:flex;justify-content:space-between;align-items:end;gap:16px;width:100%;padding:0 max(4vw,18px)}
+.fs-head b{font:900 clamp(30px,4vw,56px)/1 Archivo,sans-serif;font-variation-settings:"wdth" 110}
+.fs-head span{font:12px/1.4 "Space Mono",monospace;color:var(--sub);text-align:right}
+.strip{position:relative;width:130vw;margin-left:-15vw;background:#151515;padding:30px 0;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.strip.a{transform:rotate(-2.2deg)}
+.strip.b{transform:rotate(1.6deg)}
+.strip::before,.strip::after{content:"";position:absolute;left:0;right:0;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Crect x='8' y='2' width='12' height='10' rx='2' fill='%23e8e6df'/%3E%3C/svg%3E") repeat-x;opacity:.9}
+.strip::before{top:8px}.strip::after{bottom:8px}
+.row{display:flex;gap:12px;will-change:transform;padding-left:15vw}
+.fr{position:relative;flex:none;height:min(28svh,270px);aspect-ratio:16/10;border-radius:3px;overflow:hidden;background:#000;margin:0}
+.fr video{width:100%;height:100%;object-fit:cover}
+.fr.c video{object-fit:contain}
+.fr figcaption{position:absolute;left:8px;bottom:6px;font:11px/1 "Space Mono",monospace;color:#fff;background:rgba(0,0,0,.55);padding:4px 6px;border-radius:3px}
+.tagv,.tago{position:absolute;top:-1px;left:calc(15vw + max(4vw,18px));font:700 11px/1 Archivo,sans-serif;padding:3px 8px;border-radius:0 0 4px 4px;color:#fff;z-index:1}
+.tagv{background:var(--blue)}.tago{background:var(--green)}
+
+/* 작업 목록 */
+.sec-h{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:0 0 28px}
+.sec-h h2{margin:0;font:900 clamp(34px,5vw,64px)/1 Archivo,sans-serif;font-variation-settings:"wdth" 100}
+.sec-h span{color:var(--sub);font-size:14px}
+.works{padding:120px 0 80px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;perspective:1200px}
+.work{position:relative;display:block;text-decoration:none;border-radius:22px;overflow:hidden;aspect-ratio:4/5;transform-style:preserve-3d;transition:transform .25s ease;cursor:none}
+.work video,.work img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.work.v{background:var(--blue)}
+.work.o{background:#fff}
+.work.o video{object-fit:contain;padding:8%}
+.work .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 24px;background:linear-gradient(transparent,rgba(0,0,0,.75));display:grid;gap:4px}
+.work .cap b{font:900 clamp(30px,4vw,52px)/1 Archivo,sans-serif}
+.work .cap span{font-size:14px;color:#e5e5e5}
+.work .num{position:absolute;top:18px;left:22px;font:12px/1 "Space Mono",monospace;background:rgba(0,0,0,.55);padding:6px 9px;border-radius:99px}
+.cursor{position:fixed;left:0;top:0;z-index:60;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font:800 13px/1 Archivo,sans-serif;pointer-events:none;transform:scale(0);transition:transform .2s ease}
+.cursor.show{transform:scale(1)}
+
+/* 챕터 */
+.opener{height:220svh}
+.opener .stick{align-content:center;justify-items:center;text-align:center}
+.opener.v .stick{background:var(--blue)}
+.opener.o .stick{background:var(--green)}
+.opener .big{font:900 clamp(80px,22vw,360px)/.82 Archivo,sans-serif;letter-spacing:-.02em;font-variation-settings:"wdth" 62;margin:0;will-change:transform}
+.opener .lab{font:13px/1 "Space Mono",monospace;margin-bottom:22px;opacity:.85}
+.opener .sub{margin-top:26px;font-size:clamp(17px,2vw,22px);font-weight:700}
+.info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(28px,6vw,96px);padding:110px 0 90px}
+.info .kr{margin:0;font-size:clamp(22px,2.6vw,30px);line-height:1.35;font-weight:900}
+.info .entxt{margin:8px 0 34px;color:var(--sub)}
+dl{display:grid;grid-template-columns:6em minmax(0,1fr);gap:10px 14px;margin:0;font-size:15px}
+dt{color:var(--sub)}dd{margin:0}
+.desc{margin:0;font-size:17px;line-height:1.9;word-break:keep-all;color:#d9d9d6}
+.roles{display:flex;flex-wrap:wrap;gap:8px}
+.roles span{border:1px solid #3a3a3d;border-radius:99px;padding:3px 12px;font-size:14px}
+
+[data-rev]{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+[data-rev].in{opacity:1;transform:none}
+
+/* 필름 플레이어 */
+.film{padding:20px 0 120px}
+.player{position:relative;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:16/9}
+.player video{width:100%;height:100%;object-fit:contain}
+.player .poster{all:unset;position:absolute;inset:0;cursor:pointer;display:grid;place-items:center;background-size:cover;background-position:center}
+.player .poster::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35);transition:background .3s}
+.player .poster:hover::after{background:rgba(0,0,0,.15)}
+.player .poster:focus-visible{outline:3px solid #fff;outline-offset:-3px}
+.play{position:relative;z-index:1;width:clamp(76px,9vw,120px);aspect-ratio:1;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;transition:transform .3s}
+.player .poster:hover .play{transform:scale(1.08)}
+.play svg{width:32%;margin-left:8%}
+.player .meta{position:absolute;left:20px;bottom:18px;z-index:1;font:13px/1.3 "Space Mono",monospace;color:#fff}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tabs button{all:unset;cursor:pointer;padding:10px 18px;border-radius:99px;border:1px solid #3a3a3d;font-size:15px}
+.tabs button[aria-selected=true]{background:var(--ink);color:#000;border-color:var(--ink)}
+.tabs button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+
+/* 모션그래픽 단독 */
+.feat{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,6vw,96px);align-items:center;padding:40px max(4vw,18px) 130px}
+.fbox{position:relative;justify-self:center;width:min(100%,440px);aspect-ratio:9/16;max-height:86svh;border-radius:26px;overflow:hidden;background:#000;box-shadow:0 0 0 1px #2a2a2c,0 40px 80px rgba(52,120,255,.25)}
+.fbox video{width:100%;height:100%;object-fit:cover}
+.snd{all:unset;cursor:pointer;position:absolute;left:50%;bottom:18px;transform:translateX(-50%);background:#fff;color:#000;font-weight:700;font-size:14px;padding:12px 20px;border-radius:99px;white-space:nowrap}
+.snd:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.feat small{font:600 13px/1 Archivo,sans-serif;color:var(--blue);letter-spacing:.04em}
+.feat h3{margin:14px 0 14px;font-size:clamp(28px,3.6vw,46px);line-height:1.15;font-weight:900}
+.feat p{margin:0 0 20px;color:#d9d9d6;font-size:17px;word-break:keep-all}
+.feat ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;color:var(--sub)}
+.feat li::before{content:"— ";color:var(--blue)}
+@media(max-width:860px){.feat{grid-template-columns:minmax(0,1fr)}}
+
+/* 스크럽 */
+.scrub{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,4vw,60px);align-items:center;padding:40px 0 120px}
+.scrub video{width:100%;border-radius:18px;background:#f4f4f4}
+.scrub.o video{background:#fff}
+.steps{display:grid;gap:26px}
+.steps div{border-top:1px solid var(--line);padding-top:18px}
+.steps small{font:13px/1 "Space Mono",monospace;color:var(--sub)}
+.steps h3{margin:10px 0 6px;font-size:clamp(20px,2.2vw,26px);line-height:1.25;font-weight:900}
+.steps p{margin:0;color:#cfcfcc;word-break:keep-all}
+
+/* 가로 갤러리 */
+.hz .stick{place-items:center start}
+.track{display:flex;gap:22px;padding:0 max(4vw,18px);will-change:transform;align-items:center}
+.clip{flex:none;width:clamp(240px,26vw,360px);display:grid;gap:12px}
+.clip.wide{width:clamp(300px,52vw,720px)}
+.clip .box{border-radius:18px;overflow:hidden;background:#fff;height:min(62svh,620px);display:grid;place-items:center}
+.clip.v .box{background:#fff}
+.clip video{width:100%;height:100%;object-fit:contain}
+.clip b{font-size:17px}
+.clip span{color:var(--sub);font-size:14px;display:block}
+.hz-head{flex:none;width:clamp(260px,30vw,420px);padding-right:20px}
+.hz-head h3{margin:0 0 12px;font:900 clamp(34px,4.6vw,60px)/1 Archivo,sans-serif}
+.hz-head p{margin:0;color:var(--sub)}
+
+/* 스틸 */
+.stills{padding:40px 0 140px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+.still{border-radius:18px;overflow:hidden;position:relative;background:#141416}
+.still img{width:100%;height:100%;object-fit:cover}
+.still figcaption{position:absolute;left:14px;bottom:12px;font-size:13px;background:rgba(0,0,0,.6);padding:4px 10px;border-radius:99px}
+.s12{grid-column:span 12;aspect-ratio:2.1/1}.s7{grid-column:span 7;aspect-ratio:1.4/1}.s5{grid-column:span 5;aspect-ratio:1/1.05}.s6{grid-column:span 6;aspect-ratio:1.5/1}
+
+
+[hidden]{display:none!important}
+/* 숏폼 캐러셀 */
+.shorts{padding:120px 0 60px}
+.sh-ctrl{display:flex;align-items:center;gap:10px}
+.sh-ctrl button{all:unset;cursor:pointer;width:48px;height:48px;border-radius:50%;border:1px solid #3a3a3d;display:grid;place-items:center;font-size:20px}
+.sh-ctrl button:hover{background:#1c1c1e}
+.sh-ctrl button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.sh-ctrl button:disabled{opacity:.3;cursor:default}
+.sh-ctrl output{font:13px/1 "Space Mono",monospace;color:var(--sub);min-width:4.5em;text-align:center}
+.sh-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(4vw,18px);padding:6px max(4vw,18px) 22px;scrollbar-width:none;overscroll-behavior-x:contain}
+.sh-track::-webkit-scrollbar{display:none}
+.short{margin:0;flex:none;width:clamp(230px,24vw,320px);scroll-snap-align:start;display:grid;gap:12px;transition:opacity .3s}
+.short .vbox{position:relative;aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:#000}
+.short video{width:100%;height:100%;object-fit:cover}
+.short .go{all:unset;position:absolute;inset:0;cursor:pointer;display:grid;place-items:center;background:center/cover no-repeat}
+.short .go .play{width:72px}
+.short .go:focus-visible{outline:3px solid #fff;outline-offset:-3px}
+.short .go .len{position:absolute;right:12px;top:12px;font:12px/1 "Space Mono",monospace;background:rgba(0,0,0,.6);padding:5px 8px;border-radius:99px}
+.short b{font-size:16px}
+.short figcaption span{display:block;color:var(--sub);font-size:14px}
+
+/* 소개 */
+.about{padding:140px 0}
+.ab{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,6vw,90px);align-items:center}
+.photo{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/4;clip-path:inset(40% 0 40% 0 round 22px);transition:clip-path 1.2s cubic-bezier(.2,.8,.2,1)}
+.photo.in{clip-path:inset(0 0 0 0 round 22px)}
+.photo img{width:100%;height:100%;object-fit:cover}
+.sticker{position:absolute;width:42%;right:-3%;bottom:-4%;transform:rotate(-8deg);animation:wave 2.4s ease-in-out infinite;filter:drop-shadow(0 10px 16px rgba(0,0,0,.4))}
+.phwrap{position:relative;max-width:420px}
+.ab h2{margin:0 0 6px;font:900 clamp(40px,6vw,80px)/1 "Noto Sans KR",sans-serif}
+.ab .en2{font:600 18px/1 Archivo,sans-serif;color:var(--sub);margin:0 0 30px}
+.rows{display:grid;gap:0;border-top:1px solid var(--line)}
+.rows div{display:grid;grid-template-columns:7em minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.rows dt,.rows .k{color:var(--sub)}
+.contact{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:14px 22px;border-radius:99px;background:var(--ink);color:#000;text-decoration:none;font-weight:700}
+.contact:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+/* 크레딧 */
+.credits{height:200svh}
+.credits .stick{place-items:start center}
+.roll{text-align:center;will-change:transform;padding-top:100svh}
+.roll h4{margin:56px 0 10px;font:12px/1 "Space Mono",monospace;color:var(--sub);letter-spacing:.1em}
+.roll p{margin:0;font-size:20px;line-height:1.7}
+.roll .end{margin-top:110px;font:900 clamp(44px,8vw,110px)/1 Archivo,sans-serif;font-variation-settings:"wdth" 120}
+.roll small{display:block;margin-top:16px;color:var(--sub)}
+
+@media(max-width:860px){
+ .info,.ab{grid-template-columns:minmax(0,1fr)}
+ .scrub{grid-template-columns:minmax(0,1fr)}
+ .s7,.s5,.s6{grid-column:span 12}
+ .hud nav{display:none}
+}
+@media(max-width:600px){
+ .cards{grid-template-columns:minmax(0,1fr)}
+ .tl{display:none}
+ .memo{top:72px;right:14px;width:92px}
+ .intro h1{font-size:12.4vw}
+ .fr{height:20svh}
+ .fs-head span{display:none}
+ .sticker{right:0}
+ .phwrap{max-width:300px}
+ .work{cursor:pointer}
+ }
+@media(prefers-reduced-motion:reduce){
+ *{animation:none!important;transition:none!important}
+ .intro h1 .row span{transform:none}.intro .who{opacity:1}
+ [data-rev]{opacity:1;transform:none}
+ .photo{clip-path:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hud" aria-label="상단 메뉴">
+  <a class="me" href="#top">KIM MIN</a>
+  <nav><a href="#reel">Showreel</a><a href="#vivid">VIVID</a><a href="#on">ON;</a><a href="#shorts">Short-form</a><a href="#about">About</a></nav>
+  <div class="tc" aria-hidden="true"><i class="rec"></i><span id="tc">00:00:00:00</span></div>
+</header>
+<div class="tl" id="tl" aria-label="섹션 타임라인"><div class="ph" id="ph"></div></div>
+<div class="cursor" id="cur" aria-hidden="true">VIEW</div>
+
+<main>
+<section class="intro" id="top" data-tl="Intro">
+  <h1><span class="row"><span>Video</span></span><span class="row"><span>&amp; Motion</span></span><span class="row"><span>Portfolio</span></span></h1>
+  <div class="who"><b>김민</b><span>영상(GIF) 제작 · 브랜딩 · 리서치 및 이미지 구조화</span></div>
+  <img class="memo" src="img/memoji.png" alt="손 흔드는 김민 미모지" width="480" height="480">
+  <div class="cue">SCROLL<i></i></div>
+</section>
+
+<section class="pin" id="reel" data-tl="Showreel">
+  <div class="stick">
+    <div class="fs-head"><b class="en">Showreel</b><span>SCROLL ↓ 필름이 흘러갑니다<br>VIVID ← · → ON;</span></div>
+    <div class="strip a"><i class="tagv">VIVID</i><div class="row" id="rowA"><figure class="fr c" style="background:#3478ff"><video class="loop" data-src="media/v_hero.mp4" muted loop playsinline preload="none"></video><figcaption>V01 · VIVID 타이틀</figcaption></figure><figure class="fr" style="background:#f4f4f4"><video class="loop" data-src="media/v_cards.mp4" muted loop playsinline preload="none"></video><figcaption>V02 · 집 유형 토큰</figcaption></figure><figure class="fr" style="background:#efefef"><video class="loop" data-src="media/v_hub.mp4" muted loop playsinline preload="none"></video><figcaption>V03 · Vivid 허브</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_token.mp4" muted loop playsinline preload="none"></video><figcaption>V04 · 토큰 인식</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_friend.mp4" muted loop playsinline preload="none"></video><figcaption>V05 · 친구 추가 미션</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_shop.mp4" muted loop playsinline preload="none"></video><figcaption>V06 · 가전 찜하기</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/v_home.mp4" muted loop playsinline preload="none"></video><figcaption>V07 · 앱 홈</figcaption></figure></div></div>
+    <div class="strip b"><i class="tago">ON;</i><div class="row" id="rowB"><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_run.mp4" muted loop playsinline preload="none"></video><figcaption>O01 · 인생 2막</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_device.mp4" muted loop playsinline preload="none"></video><figcaption>O02 · AI 기기</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_app3.mp4" muted loop playsinline preload="none"></video><figcaption>O03 · 지원 관리</figcaption></figure><figure class="fr" style="background:#fff"><video class="loop" data-src="media/o_ai1.mp4" muted loop playsinline preload="none"></video><figcaption>O04 · AI 음성 상담</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_device_ui.mp4" muted loop playsinline preload="none"></video><figcaption>O05 · 기기 화면</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_screens.mp4" muted loop playsinline preload="none"></video><figcaption>O06 · 정보 탐색</figcaption></figure><figure class="fr c" style="background:#fff"><video class="loop" data-src="media/o_info.mp4" muted loop playsinline preload="none"></video><figcaption>O07 · 맞춤 복지 정보</figcaption></figure></div></div>
+  </div>
+</section>
+
+<section class="works wrap" data-tl="Works">
+  <div class="sec-h"><h2>Selected Works</h2><span>2개 프로젝트</span></div>
+  <div class="cards">
+    <a class="work v" href="#vivid" data-rev><video class="hov" data-src="media/v_hero.mp4" poster="img/p_v_hero.jpg" muted loop playsinline preload="none"></video><i class="num">01</i><div class="cap"><b>VIVID</b><span>Z세대를 위한 라이프스타일 공유 서비스</span></div></a>
+    <a class="work o" href="#on" data-rev><video class="hov" data-src="media/o_run.mp4" poster="img/p_o_run.jpg" muted loop playsinline preload="none"></video><i class="num">02</i><div class="cap"><b>ON;</b><span>인생 2막을 위한 AI 온·오프라인 서비스</span></div></a>
+  </div>
+</section>
+
+<!-- VIVID -->
+<section class="pin opener v" id="vivid" data-tl="VIVID" data-c="v">
+  <div class="stick"><div class="lab">PROJECT 01</div><h2 class="big en" data-wdth>VIVID</h2><div class="sub">공유 중심의 나다운 삶 찾기</div></div>
+</section>
+<div class="wrap">
+  <div class="info">
+    <div data-rev>
+      <p class="kr">Z세대를 위한 라이프스타일 공유 서비스</p>
+      <p class="entxt en">Lifestyle Analysis and Sharing Service for Generation Z</p>
+      <dl><dt>팀</dt><dd>김려원, 김민, 박보경, 정인아</dd><dt>맡은 역할</dt><dd class="roles"><span>영상(GIF) 제작</span><span>브랜딩</span><span>리서치 및 이미지 구조화</span></dd></dl>
+    </div>
+    <p class="desc" data-rev>Z세대는 여전히 자신에게 맞는 라이프스타일을 탐색하고 검증하는 과정에 있습니다. 그러나 일상 속 가전 사용 경험은 서로 연결되지 않아, 데이터가 개인의 생활 패턴으로 이어지지 못합니다. Vivid는 타인의 생활을 관찰하고 공유하며 직접 체험할 수 있는 플랫폼으로, 가전 데이터를 통합해 나에게 맞는 생활 방식의 방향을 제시합니다. 사용자는 다양한 비교와 선택을 통해 자신에게 맞는 방식을 만들어가며, 일상을 확장하고 지속 가능한 라이프스타일을 완성합니다.</p>
+  </div>
+  <div class="film" data-rev>
+    <div class="player">
+      <video playsinline preload="none" data-film="media/v_concept.mp4"></video>
+      <button class="poster" style="background-image:url(img/p_v_concept.jpg)" aria-label="VIVID 컨셉 영상 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><span class="meta">CONCEPT FILM · 01:45 · 소리 있음</span></button>
+    </div>
+  </div>
+</div>
+
+
+<section class="wrap feat" id="vmotion" data-tl="Motion Graphic" data-c="v">
+  <div class="fbox" data-rev>
+    <video id="fv" class="loop" data-src="media/v_motion.mp4" poster="img/p_v_motion.jpg" muted loop playsinline preload="none"></video>
+    <button type="button" class="snd" id="fsnd">처음부터 보기</button>
+  </div>
+  <div data-rev>
+    <small class="en">MOTION GRAPHIC · 01:04</small>
+    <h3>VIVID 서비스 모션그래픽</h3>
+    <p>집 유형 토큰부터 리포트와 공유 단계까지, Vivid의 서비스 흐름을 세로형 모션그래픽 한 편으로 정리했습니다.</p>
+    <ul><li>유형별 집 토큰 모션</li><li>단계별 서비스 흐름 설명</li><li>세로형 1분 4초</li></ul>
+  </div>
+</section>
+
+<section class="wrap scrub v" id="vscrub" data-tl="Token">
+    <video class="loop" data-src="media/v_cards.mp4" muted loop playsinline preload="none" data-rev></video>
+    <div>
+      <div class="steps" id="vsteps">
+        <div><small>DISCOVER</small><h3>16가지 집 유형</h3><p>유형 테스트로 가전 사용 습관에서 드러나는 나의 라이프스타일을 찾습니다.</p></div>
+        <div><small>DEFINE</small><h3>나를 담은 작은 집, 토큰</h3><p>발견한 유형은 물리적 토큰으로 제공되어 나의 데이터를 저장합니다.</p></div>
+        <div><small>SHARE</small><h3>토큰으로 나누는 일상</h3><p>친구와 토큰을 교환하며 서로의 라이프스타일을 체험합니다.</p></div>
+      </div>
+    </div>
+</section>
+
+<section class="pin hz" id="vhz" data-tl="App Motion">
+  <div class="stick">
+    <div class="track">
+      <div class="hz-head"><h3 class="en">App &amp; Hub Motion</h3><p>토큰 인식부터 친구 추천, 가전 찜까지 서비스 흐름을 모션으로 만들었습니다. 스크롤하면 옆으로 넘어갑니다.</p></div>
+      <figure class="clip"><div class="box"><video class="loop" data-src="media/v_token.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>토큰 인식</b><span>허브에 집 토큰을 올리면 앱이 인식</span></figcaption></figure>
+      <figure class="clip"><div class="box"><video class="loop" data-src="media/v_friend.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>친구 추가 미션</b><span>필터로 친구를 찾아 추가하고 미션 달성</span></figcaption></figure>
+      <figure class="clip"><div class="box"><video class="loop" data-src="media/v_shop.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>가전 둘러보기</b><span>친구의 집에서 가전을 찜하기</span></figcaption></figure>
+      <figure class="clip wide"><div class="box"><video class="loop" data-src="media/v_hub.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Vivid 허브</b><span>친구와 집 토큰을 교환하는 화면</span></figcaption></figure>
+      <figure class="clip"><div class="box"><video class="loop" data-src="media/v_home.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>앱 홈</b><span>나의 집 토큰이 사는 홈 화면</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="wrap stills">
+  <figure class="still s12"><img src="img/v_world.jpg" alt="VIVID 복셀 빌리지 렌더" loading="lazy"><figcaption>Vivid 빌리지</figcaption></figure>
+  <figure class="still s7"><img src="img/v_token3d.jpg" alt="Vivid 토큰과 카드" loading="lazy"><figcaption>토큰 · 카드</figcaption></figure>
+  <figure class="still s5"><img src="img/v_village.jpg" alt="빌리지에서 친구들의 집을 보는 화면" loading="lazy" style="object-position:30% 50%"><figcaption>빌리지 화면</figcaption></figure>
+  <figure class="still s6"><img src="img/v_hubphoto.jpg" alt="Vivid 허브와 핀" loading="lazy"><figcaption>허브 · 핀</figcaption></figure>
+  <figure class="still s6"><img src="img/v_brand.jpg" alt="VIVID 타이포그래피와 컬러 시스템" loading="lazy" style="object-fit:contain;background:#fff"><figcaption>브랜딩</figcaption></figure>
+</div>
+
+<!-- ON; -->
+<section class="pin opener o" id="on" data-tl="ON;" data-c="o">
+  <div class="stick"><div class="lab">PROJECT 02</div><h2 class="big en" data-wdth>ON;</h2><div class="sub">평온한 인생 2막 준비의 시간</div></div>
+</section>
+<div class="wrap">
+  <div class="info">
+    <div data-rev>
+      <p class="kr">인생 2막을 위한 AI 온·오프라인 서비스</p>
+      <p class="entxt en">An AI On–Offline Service for Life’s Second Chapter</p>
+      <dl><dt>팀</dt><dd>김민, 박보경</dd><dt>맡은 역할</dt><dd class="roles"><span>영상(GIF) 제작</span><span>브랜딩</span><span>리서치 및 이미지 구조화</span></dd></dl>
+    </div>
+    <p class="desc" data-rev>ON;은 은퇴가 아닌 퇴직 이후의 ‘공백기’를 겪는 4060 세대를 위한 AI 온·오프라인 서비스입니다. 사용자는 AI를 통해 과거의 삶을 기반으로 한 맞춤형 제안을 받고, 모바일 앱과 오프라인 공간을 오가며 실질적인 재취업 준비를 경험합니다. ON;은 이 공백기를 단절의 시기가 아닌, 다시 세상과 연결되는 전환의 시간으로 바라봅니다.</p>
+  </div>
+  <div class="film" data-rev>
+    <div class="tabs" role="tablist" aria-label="ON; 영상 선택">
+      <button role="tab" aria-selected="true" data-src="media/o_intro.mp4" data-poster="img/p_o_intro.jpg" data-meta="INTRO FILM · 01:31 · 소리 있음">인트로 영상</button>
+      <button role="tab" aria-selected="false" data-src="media/o_system.mp4" data-poster="img/p_o_system.jpg" data-meta="PRODUCT SYSTEM FILM · 01:49 · 소리 있음">제품 시스템 디자인 영상</button>
+    </div>
+    <div class="player" id="oplayer">
+      <video playsinline preload="none" data-film="media/o_intro.mp4"></video>
+      <button class="poster" style="background-image:url(img/p_o_intro.jpg)" aria-label="ON; 영상 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><span class="meta">INTRO FILM · 01:31 · 소리 있음</span></button>
+    </div>
+  </div>
+</div>
+
+<section class="wrap scrub o" id="oscrub" data-tl="AI Device">
+    <video class="loop" data-src="media/o_device.mp4" muted loop playsinline preload="none" data-rev></video>
+    <div>
+      <div class="steps" id="osteps">
+        <div><small>PRODUCT</small><h3>공간 속 AI 기기</h3><p>ON; 공간에 놓인 개인 비서 기기로 앱과 오프라인 활동을 잇습니다.</p></div>
+        <div><small>CARD</small><h3>카드를 꽂으면</h3><p>카드를 인식하면 나의 정보가 기기로 전달됩니다.</p></div>
+        <div><small>HOME</small><h3>나의 ON; 활동</h3><p>오늘의 일정과 준비 중인 인생 2막 활동이 화면에 열립니다.</p></div>
+      </div>
+    </div>
+</section>
+
+<section class="pin hz" id="ohz" data-tl="App Motion">
+  <div class="stick">
+    <div class="track">
+      <div class="hz-head"><h3 class="en">Service Motion</h3><p>AI 상담, 맞춤 정보, 지원 관리까지 앱과 기기 화면을 모션으로 보여줍니다.</p></div>
+      <figure class="clip wide"><div class="box"><video class="loop" data-src="media/o_ai1.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>AI 음성 상담</b><span>고민을 말하면 AI가 듣고 맞춤 정보를 추천</span></figcaption></figure>
+      <figure class="clip"><div class="box"><video class="loop" data-src="media/o_device_ui.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>기기 화면</b><span>카드 인식과 홈 화면</span></figcaption></figure>
+      <figure class="clip"><div class="box"><video class="loop" data-src="media/o_info.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>맞춤 복지 정보</b><span>국민내일배움카드 안내와 적합도</span></figcaption></figure>
+      <figure class="clip"><div class="box"><video class="loop" data-src="media/o_screens.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>정보 탐색</b><span>추천 정보 상세 화면</span></figcaption></figure>
+      <figure class="clip wide"><div class="box"><video class="loop" data-src="media/o_app3.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>지원 관리</b><span>이력서 생성, 원스톱 지원, 지원 현황 관리</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="wrap stills">
+  <figure class="still s12"><img src="img/o_hero.jpg" alt="ON; 기기 키비주얼" loading="lazy"><figcaption>ON; 기기</figcaption></figure>
+  <figure class="still s7"><img src="img/o_photo.jpg" alt="책상 위 ON; 기기" loading="lazy"><figcaption>사용 장면</figcaption></figure>
+  <figure class="still s5"><img src="img/o_space.jpg" alt="ON; 오프라인 공간 렌더" loading="lazy"><figcaption>오프라인 거점</figcaption></figure>
+  <figure class="still s6"><img src="img/o_top.jpg" alt="정보 전달 중인 ON; 기기" loading="lazy"><figcaption>정보 전달</figcaption></figure>
+  <figure class="still s6"><img src="img/o_brand.jpg" alt="ON; 타이포그래피, 컬러, 아이콘" loading="lazy" style="object-fit:contain;background:#fff"><figcaption>브랜딩</figcaption></figure>
+  <figure class="still s6"><img src="img/o_poster.jpg" alt="ON; 포스터" loading="lazy"><figcaption>포스터</figcaption></figure>
+  <figure class="still s6"><img src="img/o_sign.jpg" alt="ON; 사인 목업" loading="lazy"><figcaption>사인</figcaption></figure>
+</div>
+
+<section class="shorts" id="shorts" data-tl="Short-form">
+  <div class="wrap sec-h"><h2>Short-form</h2><div class="sh-ctrl"><button type="button" id="shPrev" aria-label="이전 영상">←</button><output id="shCount">1 / 5</output><button type="button" id="shNext" aria-label="다음 영상">→</button></div></div>
+  <div class="sh-track" id="shTrack">
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short1.mp4"></video><button class="go" style="background-image:url(img/p_short1.jpg)" aria-label="무신사 매장 방문 브이로그 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">02:43</i></button></div><figcaption><b>무신사 매장 방문 브이로그</b><span>자막·효과 편집</span></figcaption></figure>
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short2.mp4"></video><button class="go" style="background-image:url(img/p_short2.jpg)" aria-label="여행 브이로그 1탄 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">00:53</i></button></div><figcaption><b>여행 브이로그 1탄</b><span>모션 자막·이펙트 편집</span></figcaption></figure>
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short3.mp4"></video><button class="go" style="background-image:url(img/p_short3.jpg)" aria-label="공연 관람 브이로그 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">02:55</i></button></div><figcaption><b>공연 관람 브이로그</b><span>현장 촬영·자막 편집</span></figcaption></figure>
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short4.mp4"></video><button class="go" style="background-image:url(img/p_short4.jpg)" aria-label="헤어살롱 게임 영상 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">01:19</i></button></div><figcaption><b>헤어살롱 게임 영상</b><span>게임 플레이 편집</span></figcaption></figure>
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short5.mp4"></video><button class="go" style="background-image:url(img/p_short5.jpg)" aria-label="고흥 고향사랑기부 답례품 홍보 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">00:26</i></button></div><figcaption><b>고흥 고향사랑기부 답례품 홍보</b><span>그래픽 모션 숏폼</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="about wrap" id="about" data-tl="About">
+  <div class="ab">
+    <div class="phwrap"><div class="photo" data-clip><img src="img/me.jpg" alt="김민 프로필 사진" width="425" height="567"></div><img class="sticker" src="img/memoji.png" alt="" width="480" height="480"></div>
+    <div data-rev>
+      <h2>김민</h2>
+      <p class="en2">Kim Min — Video · Branding · Research</p>
+      <div class="rows">
+        <div><span class="k">맡는 일</span><span>영상(GIF) 제작, 브랜딩, 리서치 및 이미지 구조화</span></div>
+        <div><span class="k">학력</span><span>고려대학교 산업디자인 · 미디어 복수전공 (2020.03–2026.02)</span></div>
+        <div><span class="k">교육</span><span>AX(AI Transformation) 교육 과정 (6개월)</span></div>
+        <div><span class="k">프로젝트</span><span>VIVID, ON;, 숏폼 영상 5편</span></div>
+      </div>
+      <a class="contact" href="https://www.instagram.com/zkalwmn/">Instagram @zkalwmn ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="pin credits" id="credits" data-tl="Credits">
+  <div class="stick">
+    <div class="roll" id="roll">
+      <h4>VIVID</h4><p>김려원</p><p>김민</p><p>박보경</p><p>정인아</p>
+      <h4>ON;</h4><p>김민</p><p>박보경</p>
+      <h4>VIDEO · BRANDING · RESEARCH</h4><p>김민</p>
+      <div class="end">Thanks for watching</div><small>© 2026 Kim Min</small>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+{
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(pointer: fine)').matches;
+
+  // 진행률: 핀 섹션 안에서 0~1
+  const prog = el => { const r = el.getBoundingClientRect(); const t = r.height - innerHeight; return t > 0 ? clamp(-r.top / t) : (r.top < 0 ? 1 : 0); };
+
+  // 루프 영상: 보일 때만 로드·재생
+  const playIO = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { if (!v.getAttribute('src')) v.src = v.dataset.src; if (!reduce && v.paused) v.play().catch(() => {}); }
+  }), { rootMargin: '600px 2000px' });
+  $$('video.loop').forEach(v => playIO.observe(v));
+
+  // 작업 카드 썸네일도 항상 재생
+  $$('video.hov').forEach(v => playIO.observe(v));
+
+  // 커서 + 기울기
+  const cur = $('#cur');
+  if (fine && !reduce) {
+    addEventListener('pointermove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; }, { passive: true });
+    $$('.work').forEach(c => {
+      c.addEventListener('pointerenter', () => cur.classList.add('show'));
+      c.addEventListener('pointerleave', () => { cur.classList.remove('show'); c.style.transform = ''; });
+      c.addEventListener('pointermove', e => {
+        const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        c.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+      });
+    });
+  }
+
+  // 등장 효과
+  const revIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revIO.unobserve(e.target); } }), { threshold: .15 });
+  $$('[data-rev],[data-clip]').forEach(el => revIO.observe(el));
+
+  // 필름 플레이어
+  const arm = player => {
+    const v = $('video', player), btn = $('.poster', player);
+    btn.addEventListener('click', () => {
+      if (!v.getAttribute('src')) v.src = v.dataset.film;
+      document.querySelectorAll('.short video,.player video').forEach(o => { if (o !== v) o.pause(); });
+      v.controls = true; btn.hidden = true; v.muted = false;
+      v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+    });
+  };
+  $$('.player').forEach(arm);
+  const op = $('#oplayer');
+  $$('.tabs button').forEach(b => b.addEventListener('click', () => {
+    $$('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+    const v = $('video', op), btn = $('.poster', op);
+    v.pause(); v.removeAttribute('src'); v.load(); v.controls = false; v.dataset.film = b.dataset.src;
+    btn.hidden = false; btn.style.backgroundImage = `url(${b.dataset.poster})`; $('.meta', btn).textContent = b.dataset.meta;
+  }));
+
+
+
+  // 모션그래픽: 소리 켜고 처음부터
+  { const fv = $('#fv'), fb = $('#fsnd');
+    fb.addEventListener('click', () => {
+      document.querySelectorAll('.short video,.player video').forEach(o => o.pause());
+      if (!fv.getAttribute('src')) fv.src = fv.dataset.src;
+      fv.loop = false; fv.currentTime = 0; fv.muted = false; fv.controls = true; fb.hidden = true;
+      fv.play().catch(() => { fv.muted = true; fv.play().catch(() => {}); });
+    });
+  }
+
+  // 숏폼 캐러셀
+  const shT = $('#shTrack'), shCards = $$('.short', shT), shC = $('#shCount'), shP = $('#shPrev'), shN = $('#shNext');
+  const shIdx = () => { const x = shT.scrollLeft; let best = 0, d = 1e9; shCards.forEach((c, i) => { const dd = Math.abs(c.offsetLeft - shCards[0].offsetLeft - x); if (dd < d) { d = dd; best = i; } }); return best; };
+  const shUpd = () => { const i = shIdx(); shC.textContent = `${i + 1} / ${shCards.length}`; shP.disabled = shT.scrollLeft < 4; shN.disabled = shT.scrollLeft + shT.clientWidth >= shT.scrollWidth - 4; };
+  const shGo = i => { i = Math.max(0, Math.min(shCards.length - 1, i)); shT.scrollTo({ left: shCards[i].offsetLeft - shCards[0].offsetLeft, behavior: reduce ? 'auto' : 'smooth' }); };
+  shP.addEventListener('click', () => shGo(shIdx() - 1));
+  shN.addEventListener('click', () => shGo(shIdx() + 1));
+  shT.addEventListener('scroll', () => requestAnimationFrame(shUpd), { passive: true });
+  shT.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); shGo(shIdx() + 1); } if (e.key === 'ArrowLeft') { e.preventDefault(); shGo(shIdx() - 1); } });
+  // 하나만 재생
+  shCards.forEach(c => {
+    const v = $('video', c), btn = $('.go', c);
+    btn.addEventListener('click', () => {
+      $$('video', shT).forEach(o => { if (o !== v && !o.paused) o.pause(); });
+      $$('.player video').forEach(o => o.pause());
+      if (!v.getAttribute('src')) v.src = v.dataset.film;
+      v.controls = true; btn.hidden = true; v.muted = false;
+      v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+    });
+  });
+  shUpd();
+
+  // 타임라인
+  const secs = $$('[data-tl]'), tl = $('#tl'), ph = $('#ph');
+  secs.forEach(s => {
+    const b = document.createElement('button');
+    b.textContent = s.dataset.tl; b.type = 'button';
+    const c = s.dataset.c || (s.closest('[data-c]') || {}).dataset?.c;
+    if (s.id === 'vscrub' || s.id === 'vhz') b.className = 'v';
+    if (s.id === 'oscrub' || s.id === 'ohz') b.className = 'o';
+    if (c) b.className = c;
+    b.addEventListener('click', () => s.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }));
+    s._btn = b; tl.insertBefore(b, ph);
+  });
+  const sizeTL = () => secs.forEach(s => s._btn.style.flex = String(Math.max(1, s.offsetHeight)));
+
+  // 가로 갤러리 높이
+  const hzs = $$('.hz').map(sec => ({ sec, track: $('.track', sec) }));
+  const sizeHZ = () => hzs.forEach(h => { const extra = Math.max(0, h.track.scrollWidth - innerWidth); h.extra = extra; h.sec.style.height = (innerHeight + extra) + 'px'; });
+
+  const RUNTIME = 180, FPS = 24, tc = $('#tc');
+  const pad = n => String(n).padStart(2, '0');
+  const reel = $('#reel'), rowA = $('#rowA'), rowB = $('#rowB');
+  let eA = 0, eB = 0;
+  const sizeFS = () => { const w = rowA.parentElement.clientWidth; eA = Math.max(0, rowA.scrollWidth - w); eB = Math.max(0, rowB.scrollWidth - w); };
+  const openers = $$('.opener').map(sec => ({ sec, big: $('.big', sec) }));
+  const credits = $('#credits'), roll = $('#roll');
+
+  let ticking = false;
+  const frame = () => {
+    ticking = false;
+    const doc = document.documentElement, all = clamp(scrollY / (doc.scrollHeight - innerHeight || 1));
+    const t = all * RUNTIME, f = Math.floor((t % 1) * FPS);
+    tc.textContent = `00:${pad(Math.floor(t / 60))}:${pad(Math.floor(t % 60))}:${pad(f)}`;
+    ph.style.left = (all * 100) + '%';
+    secs.forEach(s => { const r = s.getBoundingClientRect(); s._btn.classList.toggle('on', r.top <= innerHeight / 2 && r.bottom > innerHeight / 2); });
+    if (reduce) return;
+
+    // 필름 스트립: 위는 왼쪽으로, 아래는 오른쪽으로
+    const rp = prog(reel);
+    rowA.style.transform = `translateX(${-rp * eA}px)`;
+    rowB.style.transform = `translateX(${-(1 - rp) * eB}px)`;
+
+    // 챕터 타이틀: 가변 폭이 넓어지며 커짐
+    openers.forEach(o => {
+      const p = prog(o.sec);
+      o.big.style.fontVariationSettings = `"wdth" ${62 + 63 * ease(clamp(p / .7))}`;
+      o.big.style.transform = `scale(${.8 + .3 * p})`;
+    });
+
+    // 가로 갤러리
+    hzs.forEach(h => { const p = prog(h.sec); h.track.style.transform = `translateX(${-p * h.extra}px)`; });
+
+    // 크레딧
+    const cp = prog(credits);
+    roll.style.transform = `translateY(${-cp * (roll.offsetHeight - innerHeight * .55)}px)`;
+  };
+  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+  const layout = () => { sizeFS(); sizeHZ(); sizeTL(); req(); };
+  document.fonts && document.fonts.ready.then(layout);
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', layout);
+  addEventListener('load', layout);
+  layout();
+}
+</script>
+</body>
+</html>
