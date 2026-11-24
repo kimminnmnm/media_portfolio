@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>김민 영상 포트폴리오</title>
+<title>Kim Min — Graphic &amp; Video Design Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Mono&display=swap" rel="stylesheet">
@@ -44,7 +44,7 @@ img{height:auto}
 /* 인트로 */
 .intro{min-height:100svh;display:grid;align-content:center;justify-items:start;padding:100px max(2.4vw,14px) 80px;position:relative;overflow:hidden}
 .intro h1{position:relative;z-index:1;margin:0;font-family:Archivo,sans-serif;font-weight:900;line-height:.86;font-size:clamp(56px,13.5vw,230px);letter-spacing:-.02em;text-transform:uppercase}
-.intro h1 .row{display:block;overflow:hidden}
+.intro h1 .row{display:block;overflow:hidden;white-space:nowrap}
 .intro h1 .row span{display:inline-block;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards;font-variation-settings:"wdth" 125}
 .intro h1 .row:nth-child(2) span{animation-delay:.12s;font-variation-settings:"wdth" 62;color:transparent;-webkit-text-stroke:2px var(--ink)}
 .intro h1 .row:nth-child(3) span{animation-delay:.24s}
@@ -112,6 +112,8 @@ img{height:auto}
 dl{display:grid;grid-template-columns:6em minmax(0,1fr);gap:10px 14px;margin:0;font-size:15px}
 dt{color:var(--sub)}dd{margin:0}
 .desc{margin:0;font-size:17px;line-height:1.9;word-break:keep-all;color:#d9d9d6}
+.desc-en{margin:18px 0 0;font:400 15px/1.7 Archivo,"Noto Sans KR",sans-serif;color:var(--sub)}
+.desc-wrap{display:grid}
 .roles{display:flex;flex-wrap:wrap;gap:8px}
 .roles span{border:1px solid #3a3a3d;border-radius:99px;padding:3px 12px;font-size:14px}
 
@@ -143,10 +145,12 @@ dt{color:var(--sub)}dd{margin:0}
 .snd{all:unset;cursor:pointer;position:absolute;left:50%;bottom:18px;transform:translateX(-50%);background:#fff;color:#000;font-weight:700;font-size:14px;padding:12px 20px;border-radius:99px;white-space:nowrap}
 .snd:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .feat small{font:600 13px/1 Archivo,sans-serif;color:var(--blue);letter-spacing:.04em}
-.feat h3{margin:14px 0 14px;font-size:clamp(28px,3.6vw,46px);line-height:1.15;font-weight:900}
+.feat h3{word-break:keep-all;margin:14px 0 14px;font-size:clamp(28px,3.6vw,46px);line-height:1.15;font-weight:900}
 .feat p{margin:0 0 20px;color:#d9d9d6;font-size:17px;word-break:keep-all}
 .feat ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;color:var(--sub)}
 .feat li::before{content:"— ";color:var(--blue)}
+.brand li::before{color:var(--ink)}
+.feat .en{font-family:Archivo,"Noto Sans KR",sans-serif}
 @media(max-width:860px){.feat{grid-template-columns:minmax(0,1fr)}}
 
 /* 스크럽 */
@@ -213,7 +217,7 @@ dt{color:var(--sub)}dd{margin:0}
 .ab h2{margin:0 0 16px;font:900 clamp(40px,6vw,80px)/1.1 "Noto Sans KR",sans-serif;letter-spacing:-.01em}
 .ab .en2{font:500 17px/1.4 Archivo,sans-serif;color:var(--sub);margin:0 0 34px;letter-spacing:.01em}
 .rows{display:grid;gap:0;border-top:1px solid var(--line)}
-.rows div{display:grid;grid-template-columns:7em minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.rows div{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
 .rows dt,.rows .k{color:var(--sub)}
 .contact{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:14px 22px;border-radius:99px;background:var(--ink);color:#000;text-decoration:none;font-weight:700}
 .contact:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -256,7 +260,7 @@ dt{color:var(--sub)}dd{margin:0}
 
 <header class="hud" aria-label="상단 메뉴">
   <a class="me" href="#top">KIM MIN</a>
-  <nav><a href="#reel">Showreel</a><a href="#vivid">VIVID</a><a href="#on">ON;</a><a href="#shorts">Short-form</a><a href="#about">About</a></nav>
+  <nav><a href="#reel">Showreel</a><a href="#vivid">VIVID</a><a href="#on">ON;</a><a href="#brand">Brand &amp; Social</a><a href="#shorts">Short-form</a><a href="#about">About</a></nav>
   <div class="tc" aria-hidden="true"><i class="rec"></i><span id="tc">00:00:00:00</span></div>
 </header>
 <div class="tl" id="tl" aria-label="섹션 타임라인"><div class="ph" id="ph"></div></div>
@@ -264,8 +268,8 @@ dt{color:var(--sub)}dd{margin:0}
 
 <main>
 <section class="intro" id="top" data-tl="Intro">
-  <h1><span class="row"><span>Video</span></span><span class="row"><span>&amp; Motion</span></span><span class="row"><span>Portfolio</span></span></h1>
-  <div class="who"><b>김민</b><span>영상(GIF) 제작 · 브랜딩 · 리서치 및 이미지 구조화</span></div>
+  <h1 aria-label="Graphic &amp; Video Design Portfolio"><span class="row"><span>Graphic</span></span><span class="row"><span>&amp; Video Design</span></span><span class="row"><span>Portfolio</span></span></h1>
+  <div class="who"><b>김민 <span class="en" style="color:var(--ink)">Kim Min</span></b><span class="en">Brand Identity · Motion Graphics · Short-form Video · Social Media Content</span></div>
   <img class="memo" src="img/memoji.png" alt="손 흔드는 김민 미모지" width="480" height="480">
   <div class="cue">SCROLL<i></i></div>
 </section>
@@ -286,6 +290,21 @@ dt{color:var(--sub)}dd{margin:0}
   </div>
 </section>
 
+<section class="wrap feat brand" id="brand" data-tl="Brand &amp; Social">
+  <div class="fbox" data-rev style="box-shadow:0 0 0 1px #2a2a2c,0 40px 80px rgba(255,255,255,.08)">
+    <video id="gv" class="loop" data-src="media/short5.mp4" poster="img/p_short5.jpg" muted loop playsinline preload="none"></video>
+    <button type="button" class="snd" id="gsnd">소리 켜고 처음부터 보기</button>
+  </div>
+  <div data-rev>
+    <small class="en" style="color:var(--ink)">BRAND &amp; SOCIAL CONTENT · 00:26</small>
+    <h3>고흥 고향사랑기부 답례품 홍보 숏폼</h3>
+    <p class="en" style="margin-top:-6px;color:var(--sub)">Promotional short-form for Goheung’s hometown-donation gift program</p>
+    <p>지역 답례품을 소개하는 SNS용 세로형 홍보 영상입니다. 그래픽 모션으로 핵심 정보를 짧고 명확하게 전달했습니다.</p>
+    <ul><li class="en">Short-form Video · Motion Graphics · Social Media Content</li></ul>
+  </div>
+</section>
+
+
 <!-- VIVID -->
 <section class="pin opener v" id="vivid" data-tl="VIVID" data-c="v">
   <div class="stick"><div class="lab">PROJECT 01</div><h2 class="big en" data-wdth>VIVID</h2><div class="sub">공유 중심의 나다운 삶 찾기</div></div>
@@ -295,9 +314,9 @@ dt{color:var(--sub)}dd{margin:0}
     <div data-rev>
       <p class="kr">Z세대를 위한 라이프스타일 공유 서비스</p>
       <p class="entxt en">Lifestyle Analysis and Sharing Service for Generation Z</p>
-      <dl><dt>팀</dt><dd>김려원, 김민, 박보경, 정인아</dd><dt>맡은 역할</dt><dd class="roles"><span>영상(GIF) 제작</span><span>브랜딩</span><span>리서치 및 이미지 구조화</span></dd></dl>
+      <dl><dt>팀 Team</dt><dd>김려원, 김민, 박보경, 정인아</dd><dt>역할 Role</dt><dd class="roles"><span>영상(GIF) 제작 · Motion</span><span>브랜딩 · Branding</span><span>리서치 · Research</span></dd></dl>
     </div>
-    <p class="desc" data-rev>Z세대는 여전히 자신에게 맞는 라이프스타일을 탐색하고 검증하는 과정에 있습니다. 그러나 일상 속 가전 사용 경험은 서로 연결되지 않아, 데이터가 개인의 생활 패턴으로 이어지지 못합니다. Vivid는 타인의 생활을 관찰하고 공유하며 직접 체험할 수 있는 플랫폼으로, 가전 데이터를 통합해 나에게 맞는 생활 방식의 방향을 제시합니다. 사용자는 다양한 비교와 선택을 통해 자신에게 맞는 방식을 만들어가며, 일상을 확장하고 지속 가능한 라이프스타일을 완성합니다.</p>
+    <div class="desc-wrap" data-rev><p class="desc">Z세대는 여전히 자신에게 맞는 라이프스타일을 탐색하고 검증하는 과정에 있습니다. 그러나 일상 속 가전 사용 경험은 서로 연결되지 않아, 데이터가 개인의 생활 패턴으로 이어지지 못합니다. Vivid는 타인의 생활을 관찰하고 공유하며 직접 체험할 수 있는 플랫폼으로, 가전 데이터를 통합해 나에게 맞는 생활 방식의 방향을 제시합니다. 사용자는 다양한 비교와 선택을 통해 자신에게 맞는 방식을 만들어가며, 일상을 확장하고 지속 가능한 라이프스타일을 완성합니다.</p><p class="desc-en">Gen Z is still exploring which lifestyle fits them, yet their everyday appliance experiences stay disconnected, so the data never adds up to a picture of how they live. VIVID is a platform for observing, sharing and trying out other people’s lifestyles. It brings appliance data together to suggest a way of living that fits each user, who then compares, chooses and builds a sustainable lifestyle of their own.</p></div>
   </div>
   <div class="film" data-rev>
     <div class="player">
@@ -362,9 +381,9 @@ dt{color:var(--sub)}dd{margin:0}
     <div data-rev>
       <p class="kr">인생 2막을 위한 AI 온·오프라인 서비스</p>
       <p class="entxt en">An AI On–Offline Service for Life’s Second Chapter</p>
-      <dl><dt>팀</dt><dd>김민, 박보경</dd><dt>맡은 역할</dt><dd class="roles"><span>영상(GIF) 제작</span><span>브랜딩</span><span>리서치 및 이미지 구조화</span></dd></dl>
+      <dl><dt>팀 Team</dt><dd>김민, 박보경</dd><dt>역할 Role</dt><dd class="roles"><span>영상(GIF) 제작 · Motion</span><span>브랜딩 · Branding</span><span>리서치 · Research</span></dd></dl>
     </div>
-    <p class="desc" data-rev>ON;은 은퇴가 아닌 퇴직 이후의 ‘공백기’를 겪는 4060 세대를 위한 AI 온·오프라인 서비스입니다. 사용자는 AI를 통해 과거의 삶을 기반으로 한 맞춤형 제안을 받고, 모바일 앱과 오프라인 공간을 오가며 실질적인 재취업 준비를 경험합니다. ON;은 이 공백기를 단절의 시기가 아닌, 다시 세상과 연결되는 전환의 시간으로 바라봅니다.</p>
+    <div class="desc-wrap" data-rev><p class="desc">ON;은 은퇴가 아닌 퇴직 이후의 ‘공백기’를 겪는 4060 세대를 위한 AI 온·오프라인 서비스입니다. 사용자는 AI를 통해 과거의 삶을 기반으로 한 맞춤형 제안을 받고, 모바일 앱과 오프라인 공간을 오가며 실질적인 재취업 준비를 경험합니다. ON;은 이 공백기를 단절의 시기가 아닌, 다시 세상과 연결되는 전환의 시간으로 바라봅니다.</p><p class="desc-en">ON; is an AI-powered online/offline service for people in their 40s–60s facing the gap after leaving a long-held job. AI offers suggestions based on each user’s past career and life, and users prepare for re-employment by moving between a mobile app and physical spaces. ON; treats this gap not as a break, but as a transition back into the world.</p></div>
   </div>
   <div class="film" data-rev>
     <div class="tabs" role="tablist" aria-label="ON; 영상 선택">
@@ -413,13 +432,12 @@ dt{color:var(--sub)}dd{margin:0}
 </div>
 
 <section class="shorts" id="shorts" data-tl="Short-form">
-  <div class="wrap sec-h"><h2>Short-form</h2><div class="sh-ctrl"><button type="button" id="shPrev" aria-label="이전 영상">←</button><output id="shCount">1 / 5</output><button type="button" id="shNext" aria-label="다음 영상">→</button></div></div>
+  <div class="wrap sec-h"><h2>Additional Short-form</h2><div class="sh-ctrl"><button type="button" id="shPrev" aria-label="이전 영상">←</button><output id="shCount">1 / 4</output><button type="button" id="shNext" aria-label="다음 영상">→</button></div></div>
   <div class="sh-track" id="shTrack">
-      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short1.mp4"></video><button class="go" style="background-image:url(img/p_short1.jpg)" aria-label="무신사 매장 방문 브이로그 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">02:43</i></button></div><figcaption><b>무신사 매장 방문 브이로그</b><span>자막·효과 편집</span></figcaption></figure>
-      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short2.mp4"></video><button class="go" style="background-image:url(img/p_short2.jpg)" aria-label="여행 브이로그 1탄 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">00:53</i></button></div><figcaption><b>여행 브이로그 1탄</b><span>모션 자막·이펙트 편집</span></figcaption></figure>
-      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short3.mp4"></video><button class="go" style="background-image:url(img/p_short3.jpg)" aria-label="공연 관람 브이로그 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">02:55</i></button></div><figcaption><b>공연 관람 브이로그</b><span>현장 촬영·자막 편집</span></figcaption></figure>
-      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short4.mp4"></video><button class="go" style="background-image:url(img/p_short4.jpg)" aria-label="헤어살롱 게임 영상 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">01:19</i></button></div><figcaption><b>헤어살롱 게임 영상</b><span>게임 플레이 편집</span></figcaption></figure>
-      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short5.mp4"></video><button class="go" style="background-image:url(img/p_short5.jpg)" aria-label="고흥 고향사랑기부 답례품 홍보 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">00:26</i></button></div><figcaption><b>고흥 고향사랑기부 답례품 홍보</b><span>그래픽 모션 숏폼</span></figcaption></figure>
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short1.mp4"></video><button class="go" style="background-image:url(img/p_short1.jpg)" aria-label="무신사 매장 방문 브이로그 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">02:43</i></button></div><figcaption><b>무신사 매장 방문 브이로그</b><span class="en">Vlog · Subtitles & effects</span></figcaption></figure>
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short2.mp4"></video><button class="go" style="background-image:url(img/p_short2.jpg)" aria-label="여행 브이로그 1탄 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">00:53</i></button></div><figcaption><b>여행 브이로그 1탄</b><span class="en">Vlog · Motion subtitles & effects</span></figcaption></figure>
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short3.mp4"></video><button class="go" style="background-image:url(img/p_short3.jpg)" aria-label="공연 관람 브이로그 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">02:55</i></button></div><figcaption><b>공연 관람 브이로그</b><span class="en">Vlog · Live footage & subtitles</span></figcaption></figure>
+      <figure class="short"><div class="vbox"><video playsinline preload="none" data-film="media/short4.mp4"></video><button class="go" style="background-image:url(img/p_short4.jpg)" aria-label="헤어살롱 게임 영상 재생"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span><i class="len">01:19</i></button></div><figcaption><b>헤어살롱 게임 영상</b><span class="en">Game play edit</span></figcaption></figure>
   </div>
 </section>
 
@@ -428,12 +446,14 @@ dt{color:var(--sub)}dd{margin:0}
     <div class="phwrap"><div class="photo" data-clip><img src="img/me.jpg" alt="김민 프로필 사진" width="425" height="567"></div><img class="sticker" src="img/memoji.png" alt="" width="480" height="480"></div>
     <div data-rev>
       <h2>김민</h2>
-      <p class="en2">Kim Min — Video · Branding · Research</p>
+      <p class="en2">Kim Min — Graphic &amp; Video Designer</p>
       <div class="rows">
-        <div><span class="k">맡는 일</span><span>영상(GIF) 제작, 브랜딩, 리서치 및 이미지 구조화</span></div>
-        <div><span class="k">학력</span><span>고려대학교 산업디자인 · 미디어 복수전공 (2020.03–2026.02)</span></div>
-        <div><span class="k">교육</span><span>AX(AI Transformation) 교육 과정 (6개월)</span></div>
-        <div><span class="k">프로젝트</span><span>VIVID, ON;, 숏폼 영상 5편</span></div>
+        <div><span class="k">Focus</span><span class="en">Brand Identity · Motion Graphics · Short-form Video · Social Media Content</span></div>
+        <div><span class="k">경력<br>Experience</span><span><b>디깅 매거진 DIGGING Magazine</b> — 프리랜서 콘텐츠 에디터 (2026.06–)<br><span style="color:var(--sub)">부산·제주 로컬 브랜드·공간 SNS 콘텐츠 기획·제작: 트렌드·업체 리서치, 이미지 선정, 카피라이팅, 콘텐츠 디자인</span></span></div>
+        <div><span class="k">툴<br>Tools</span><span class="en">Photoshop · Illustrator · Premiere Pro · CapCut · Blender · Rhino · Generative AI tools</span></div>
+        <div><span class="k">학력<br>Education</span><span>고려대학교 산업디자인 · 미디어 복수전공 (2020.03–2026.02)<br><span class="en" style="color:var(--sub)">Korea University — Industrial Design, double major in Media</span></span></div>
+        <div><span class="k">교육<br>Training</span><span>AX(AI Transformation) 교육 과정 (6개월)</span></div>
+        <div><span class="k">언어<br>Language</span><span class="en">Korean (native) · English — TOEIC 790, TOEIC Speaking AL (2026.07)</span></div>
       </div>
       <a class="contact" href="https://www.instagram.com/zkalwmn/">Instagram @zkalwmn ↗</a>
     </div>
@@ -522,6 +542,14 @@ dt{color:var(--sub)}dd{margin:0}
     });
   }
 
+  { const gv = $('#gv'), gb = $('#gsnd');
+    gb.addEventListener('click', () => {
+      document.querySelectorAll('.short video,.player video,#fv').forEach(o => o.pause());
+      if (!gv.getAttribute('src')) gv.src = gv.dataset.src;
+      gv.loop = false; gv.currentTime = 0; gv.muted = false; gv.controls = true; gb.hidden = true;
+      gv.play().catch(() => { gv.muted = true; gv.play().catch(() => {}); });
+    });
+  }
   // 숏폼 캐러셀
   const shT = $('#shTrack'), shCards = $$('.short', shT), shC = $('#shCount'), shP = $('#shPrev'), shN = $('#shNext');
   const shIdx = () => { const x = shT.scrollLeft; let best = 0, d = 1e9; shCards.forEach((c, i) => { const dd = Math.abs(c.offsetLeft - shCards[0].offsetLeft - x); if (dd < d) { d = dd; best = i; } }); return best; };
